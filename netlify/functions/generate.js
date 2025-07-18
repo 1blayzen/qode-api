@@ -1,6 +1,7 @@
 const QRCode = require('qrcode');
 
 const isValidHexColor = (hex) => /^#[0-9A-F]{6}$/i.test(hex);
+const isValidSize = (size) => /^\d+x\d+$/.test(size);
 
 exports.handler = async (event, context) => {
   const {
@@ -8,6 +9,7 @@ exports.handler = async (event, context) => {
     dark = '#000000',
     light = '#FFFFFF',
     format = 'dataUrl',  // 'dataUrl' ou 'png'
+    size = '400x400',    // novo parâmetro tamanho, padrão 400x400
   } = event.queryStringParameters || {};
 
   if (!text) {
@@ -28,6 +30,17 @@ exports.handler = async (event, context) => {
       body: JSON.stringify({ error: 'Parâmetros de cor inválidos. Use hex (ex: #RRGGBB).' }),
     };
   }
+  if (!isValidSize(size)) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: 'Parâmetro "size" inválido. Use formato NxN, ex: 400x400.' }),
+    };
+  }
+
+  // Extrai largura e altura do size
+  const [widthStr, heightStr] = size.split('x');
+  const width = parseInt(widthStr, 10);
+  const height = parseInt(heightStr, 10);
 
   try {
     const options = {
@@ -35,11 +48,11 @@ exports.handler = async (event, context) => {
       type: 'image/png',
       quality: 0.95,
       margin: 1.5,
+      width, // aplica largura (qrcode usa quadrado, height não é usado)
       color: { dark, light },
     };
 
     if (format === 'png') {
-      // Retorna o PNG puro (imagem binária)
       const buffer = await QRCode.toBuffer(text, options);
       return {
         statusCode: 200,
@@ -53,7 +66,6 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // Padrão: retorna JSON com dataUrl base64
     const dataUrl = await QRCode.toDataURL(text, options);
     return {
       statusCode: 200,
