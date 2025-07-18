@@ -1,0 +1,26 @@
+{
+  "name": "qode-site",
+  "version": "1.1.0",
+  "description": "Site e API para gerar QR Codes, hospedado na Netlify",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "netlify dev"
+  },
+  "keywords": [
+    "qrcode",
+    "api",
+    "netlify",
+    "serverless",
+    "base64",
+    "qr",
+    "gerador"
+  ],
+  "author": "1blayzen",
+  "license": "MIT",
+  "dependencies": {
+    "qrcode": "^1.5.3"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.0.0"
+  }
+}

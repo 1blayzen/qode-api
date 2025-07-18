@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qode - Gerador e Status</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-brand">Qode <i class="fa-solid fa-heart"></i></a>
+            <ul class="nav-menu">
+                <li><a href="/" class="nav-link active">Gerador</a></li>
+                <li><a href="/docs.html" class="nav-link">Documentação</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="main-column">
+            <div class="container generator-container">
+                <div class="sparkle s1"><i class="fa-solid fa-star"></i></div>
+                <div class="sparkle s2"><i class="fa-solid fa-heart"></i></div>
+                
+                <header>
+                    <h1>Crie seu QR Code</h1>
+                    <p>(ﾉ◕ヮ◕ )ﾉ*:･ﾟ✧</p>
+                </header>
+
+                <main>
+                    <div class="input-group">
+                        <input type="text" id="text-input" class="input-field" placeholder="Digite um link ou texto mágico...">
+                        <button id="generate-btn" class="btn btn-primary"><i class="fa-solid fa-wand-magic-sparkles"></i> Criar meu QR Code!</button>
+                    </div>
+
+                    <div id="loader" class="loader hidden"></div>
+
+                    <div id="result-area" class="result-area hidden">
+                        <img id="qr-code-img" src="" alt="QR Code Gerado">
+                        <a id="download-link" href="#" class="btn btn-secondary"><i class="fa-solid fa-gift"></i> Baixar Fofura</a>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+        <aside class="sidebar-column">
+            <div class="container status-container">
+                <header>
+                    <h2><i class="fa-solid fa-satellite-dish"></i> Status da API</h2>
+                    <p>Monitorando a magia!</p>
+                </header>
+                <main>
+                    <ul class="status-list">
+                        <li id="status-geral">
+                            <span class="status-label"><i class="fa-solid fa-power-off"></i> Status</span>
+                            <span class="status-value"><span id="status-indicator"></span><span id="status-text">Verificando...</span></span>
+                        </li>
+                        <li id="status-latencia">
+                            <span class="status-label"><i class="fa-solid fa-stopwatch"></i> Latência</span>
+                            <span class="status-value">-- ms</span>
+                        </li>
+                        <li id="status-uptime">
+                            <span class="status-label"><i class="fa-solid fa-shield-heart"></i> Uptime</span>
+                            <span class="status-value">-- %</span>
+                        </li>
+                        <li id="status-versao">
+                            <span class="status-label"><i class="fa-solid fa-code-branch"></i> Versão</span>
+                            <span class="status-value">--</span>
+                        </li>
+                    </ul>
+                    <div class="last-check">Última verificação: <span id="last-check-time">Nunca</span></div>
+                </main>
+            </div>
+        </aside>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
