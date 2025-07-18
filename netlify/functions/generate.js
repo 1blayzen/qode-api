@@ -7,9 +7,8 @@ exports.handler = async (event, context) => {
     text,
     dark = '#000000',
     light = '#FFFFFF',
-    format = 'dataUrl', 
-  } = event.queryStringParameters;
-
+    format = 'dataUrl',  // 'dataUrl' ou 'png'
+  } = event.queryStringParameters || {};
 
   if (!text) {
     return {
@@ -26,7 +25,7 @@ exports.handler = async (event, context) => {
   if (!isValidHexColor(dark) || !isValidHexColor(light)) {
     return {
       statusCode: 400,
-      body: JSON.stringify({ error: 'Os parâmetros de cor devem ser códigos hexadecimais válidos (ex: #RRGGBB).' }),
+      body: JSON.stringify({ error: 'Parâmetros de cor inválidos. Use hex (ex: #RRGGBB).' }),
     };
   }
 
@@ -39,36 +38,37 @@ exports.handler = async (event, context) => {
       color: { dark, light },
     };
 
-    if (format === 'buffer') {
-      const qrCodeBuffer = await QRCode.toBuffer(text, options);
+    if (format === 'png') {
+      // Retorna o PNG puro (imagem binária)
+      const buffer = await QRCode.toBuffer(text, options);
       return {
         statusCode: 200,
         headers: {
           'Content-Type': 'image/png',
           'Cache-Control': 'public, max-age=31536000, immutable',
+          'Access-Control-Allow-Origin': '*',
         },
-        body: qrCodeBuffer.toString('base64'),
+        body: buffer.toString('base64'),
         isBase64Encoded: true,
       };
     }
 
-
-    const qrCodeImage = await QRCode.toDataURL(text, options);
+    // Padrão: retorna JSON com dataUrl base64
+    const dataUrl = await QRCode.toDataURL(text, options);
     return {
       statusCode: 200,
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
         'Cache-Control': 'public, max-age=31536000, immutable',
+        'Access-Control-Allow-Origin': '*',
       },
-      body: JSON.stringify({ success: true, result: { dataUrl: qrCodeImage, format: 'png' } }),
+      body: JSON.stringify({ success: true, result: { dataUrl, format: 'png' } }),
     };
-
   } catch (err) {
     console.error('Erro na geração do QRCode:', err);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Ocorreu um erro interno no servidor ao gerar a imagem.' }),
+      body: JSON.stringify({ error: 'Erro interno ao gerar o QRCode.' }),
     };
   }
 };
