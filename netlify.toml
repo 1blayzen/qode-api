@@ -1,15 +1,9 @@
 # netlify.toml
 
-# Configurações de build
 [build]
-  # Diretório onde a Netlify encontrará as funções serverless.
   functions = "netlify/functions"
-  # Diretório que será publicado como o site estático.
   publish = "public"
 
-# Regra de reescrita (rewrite) para a API
-# Isso faz com que as chamadas para /api/* sejam direcionadas
-# para as funções serverless, sem mudar a URL no navegador.
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"

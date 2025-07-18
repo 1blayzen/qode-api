@@ -1,82 +1,171 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qode - Gerador e Status</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <title>Qode - Gerador de QR Code e Status da API</title>
+    <link rel="icon" href="./img/qode.png" type="image/png" />
+
+    <meta
+      name="description"
+      content="Crie QR Codes personalizados de forma rápida e gratuita com a Qode. Ferramenta online para gerar, customizar e baixar QR Codes. Verifique também o status da nossa API."
+    />
+    <meta
+      name="keywords"
+      content="gerador de qr code, criar qr code, qr code online, qr code personalizado, qode, 1blayzen, api status"
+    />
+    <meta name="author" content="1Blayzen" />
+
+    <meta property="og:title" content="Qode - Gerador de QR Code Online" />
+    <meta
+      property="og:description"
+      content="Crie e personalize QR Codes de forma rápida e gratuita."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://qode-api.netlify.app/" />
+    <meta
+      property="og:image"
+      content="https://qode-api.netlify.app/img/qode-preview.png"
+    />
+    <meta name="theme-color" content="#fbcfe8" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Qode - Gerador de QR Code Online" />
+    <meta
+      name="twitter:description"
+      content="Crie e personalize QR Codes de forma rápida e gratuita."
+    />
+    <meta
+      name="twitter:image"
+      content="https://qode-api.netlify.app/img/qode.png"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
     <nav class="navbar">
-        <div class="nav-container">
-            <a href="/" class="nav-brand">Qode <i class="fa-solid fa-heart"></i></a>
-            <ul class="nav-menu">
-                <li><a href="/" class="nav-link active">Gerador</a></li>
-                <li><a href="/docs.html" class="nav-link">Documentação</a></li>
-            </ul>
-        </div>
+      <div class="nav-container">
+        <a href="/" class="nav-brand">Qode <i class="fa-solid fa-heart"></i></a>
+        <ul class="nav-menu">
+          <li><a href="/" class="nav-link active">Gerador</a></li>
+          <li><a href="/docs.html" class="nav-link">Documentação</a></li>
+        </ul>
+      </div>
     </nav>
 
     <div class="main-content">
-        <div class="main-column">
-            <div class="container generator-container">
-                <div class="sparkle s1"><i class="fa-solid fa-star"></i></div>
-                <div class="sparkle s2"><i class="fa-solid fa-heart"></i></div>
-                
-                <header>
-                    <h1>Crie seu QR Code</h1>
-                    <p>(ﾉ◕ヮ◕ )ﾉ*:･ﾟ✧</p>
-                </header>
+      <div class="main-column">
+        <div class="container generator-container">
+          <div class="sparkle s1"><i class="fa-solid fa-star"></i></div>
+          <div class="sparkle s2"><i class="fa-solid fa-heart"></i></div>
 
-                <main>
-                    <div class="input-group">
-                        <input type="text" id="text-input" class="input-field" placeholder="Digite um link ou texto mágico...">
-                        <button id="generate-btn" class="btn btn-primary"><i class="fa-solid fa-wand-magic-sparkles"></i> Criar meu QR Code!</button>
-                    </div>
+          <header>
+            <h1>Crie seu QR Code</h1>
+            <p>(ﾉ◕ヮ◕ )ﾉ*:･ﾟ✧</p>
+          </header>
 
-                    <div id="loader" class="loader hidden"></div>
-
-                    <div id="result-area" class="result-area hidden">
-                        <img id="qr-code-img" src="" alt="QR Code Gerado">
-                        <a id="download-link" href="#" class="btn btn-secondary"><i class="fa-solid fa-gift"></i> Baixar Fofura</a>
-                    </div>
-                </main>
+          <main>
+            <div class="input-group">
+              <input
+                type="text"
+                id="text-input"
+                class="input-field"
+                placeholder="Digite um link ou texto mágico..."
+              />
+              <button id="generate-btn" class="btn btn-primary">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Criar meu QR
+                Code!
+              </button>
             </div>
+
+            <div id="loader" class="loader hidden"></div>
+
+            <div id="result-area" class="result-area hidden">
+              <img id="qr-code-img" src="" alt="QR Code Gerado" />
+              <a id="download-link" href="#" class="btn btn-secondary"
+                ><i class="fa-solid fa-gift"></i> Baixar Fofura</a
+              >
+            </div>
+          </main>
+        </div>
+      </div>
+
+      <aside class="sidebar-column">
+        <div class="container status-container">
+          <header>
+            <h2><i class="fa-solid fa-satellite-dish"></i> Status da API</h2>
+            <p>Monitorando a magia!</p>
+          </header>
+          <main>
+            <ul class="status-list">
+              <li id="status-geral">
+                <span class="status-label"
+                  ><i class="fa-solid fa-power-off"></i> Status</span
+                >
+                <span class="status-value"
+                  ><span id="status-indicator"></span
+                  ><span id="status-text">Verificando...</span></span
+                >
+              </li>
+              <li id="status-latencia">
+                <span class="status-label"
+                  ><i class="fa-solid fa-stopwatch"></i> Latência</span
+                >
+                <span class="status-value">-- ms</span>
+              </li>
+              <li id="status-uptime">
+                <span class="status-label"
+                  ><i class="fa-solid fa-shield-heart"></i> Uptime</span
+                >
+                <span class="status-value">-- %</span>
+              </li>
+              <li id="status-versao">
+                <span class="status-label"
+                  ><i class="fa-solid fa-code-branch"></i> Versão</span
+                >
+                <span class="status-value">--</span>
+              </li>
+            </ul>
+            <div class="last-check">
+              Última verificação: <span id="last-check-time">Nunca</span>
+            </div>
+          </main>
         </div>
 
-        <aside class="sidebar-column">
-            <div class="container status-container">
-                <header>
-                    <h2><i class="fa-solid fa-satellite-dish"></i> Status da API</h2>
-                    <p>Monitorando a magia!</p>
-                </header>
-                <main>
-                    <ul class="status-list">
-                        <li id="status-geral">
-                            <span class="status-label"><i class="fa-solid fa-power-off"></i> Status</span>
-                            <span class="status-value"><span id="status-indicator"></span><span id="status-text">Verificando...</span></span>
-                        </li>
-                        <li id="status-latencia">
-                            <span class="status-label"><i class="fa-solid fa-stopwatch"></i> Latência</span>
-                            <span class="status-value">-- ms</span>
-                        </li>
-                        <li id="status-uptime">
-                            <span class="status-label"><i class="fa-solid fa-shield-heart"></i> Uptime</span>
-                            <span class="status-value">-- %</span>
-                        </li>
-                        <li id="status-versao">
-                            <span class="status-label"><i class="fa-solid fa-code-branch"></i> Versão</span>
-                            <span class="status-value">--</span>
-                        </li>
-                    </ul>
-                    <div class="last-check">Última verificação: <span id="last-check-time">Nunca</span></div>
-                </main>
+        <div class="container credits-container">
+          <main>
+            <div class="credits-line">
+              <a
+                href="https://github.com/1Blayzen"
+                target="_blank"
+                class="credits-link"
+              >
+                <i class="fa-brands fa-github"></i> 1Blayzen
+              </a>
+              <span class="separator">|</span>
+              <span>Feito para a Laren</span>
             </div>
-        </aside>
+            <a
+              href="https://discord.com/oauth2/authorize?client_id=1294012542724870174"
+              target="_blank"
+              class="btn btn-discord"
+            >
+              <i class="fa-brands fa-discord"></i> Adicionar a Laren
+            </a>
+          </main>
+        </div>
+      </aside>
     </div>
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>

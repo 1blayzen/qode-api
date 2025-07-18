@@ -1,67 +1,88 @@
-const QRCode = require('qrcode');
+const QRCode = require("qrcode");
 
 const isValidHexColor = (hex) => /^#[0-9A-F]{6}$/i.test(hex);
 const isValidSize = (size) => /^\d+x\d+$/.test(size);
 
-exports.handler = async (event, context) => {
-  const {
-    text,
-    dark = '#000000',
-    light = '#FFFFFF',
-    format = 'dataUrl',  // 'dataUrl' ou 'png'
-    size = '400x400',    // novo parâmetro tamanho, padrão 400x400
-  } = event.queryStringParameters || {};
+const BASE_QR_OPTIONS = {
+  errorCorrectionLevel: "M",
+  type: "image/png",
+  quality: 0.92,
+  margin: 1.5,
+};
 
-  if (!text) {
-    return {
-      statusCode: 400,
-      body: JSON.stringify({ error: 'Parâmetro "text" é obrigatório.' }),
-    };
-  }
-  if (text.length > 1024) {
-    return {
-      statusCode: 400,
-      body: JSON.stringify({ error: 'O texto excede o limite de 1024 caracteres.' }),
-    };
-  }
-  if (!isValidHexColor(dark) || !isValidHexColor(light)) {
-    return {
-      statusCode: 400,
-      body: JSON.stringify({ error: 'Parâmetros de cor inválidos. Use hex (ex: #RRGGBB).' }),
-    };
-  }
-  if (!isValidSize(size)) {
-    return {
-      statusCode: 400,
-      body: JSON.stringify({ error: 'Parâmetro "size" inválido. Use formato NxN, ex: 400x400.' }),
-    };
-  }
-
-  // Extrai largura e altura do size
-  const [widthStr, heightStr] = size.split('x');
-  const width = parseInt(widthStr, 10);
-  const height = parseInt(heightStr, 10);
-
+exports.handler = async (event) => {
   try {
+    const params = event.queryStringParameters || {};
+    const {
+      text,
+      cor_qrcode = "#000000",
+      cor_fundo = "#FFFFFF",
+      format = "dataUrl",
+      size = "400x400",
+    } = params;
+
+    if (!text) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: 'Parâmetro "text" é obrigatório.' }),
+      };
+    }
+    if (text.length > 1024) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({
+          error: "O texto excede o limite de 1024 caracteres.",
+        }),
+      };
+    }
+    if (!isValidHexColor(cor_qrcode) || !isValidHexColor(cor_fundo)) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({
+          error:
+            'Parâmetros de cor inválidos. Use "cor_qrcode" e "cor_fundo" com formato hex (ex: #RRGGBB).',
+        }),
+      };
+    }
+    if (!isValidSize(size)) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({
+          error: 'Parâmetro "size" inválido. Use formato NxN, ex: 400x400.',
+        }),
+      };
+    }
+
+    const width = parseInt(size.split("x")[0], 10);
+    if (width > 2048) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({
+          error: "O tamanho máximo permitido é 2048x2048.",
+        }),
+      };
+    }
+
     const options = {
-      errorCorrectionLevel: 'H',
-      type: 'image/png',
-      quality: 0.95,
-      margin: 1.5,
-      width, // aplica largura (qrcode usa quadrado, height não é usado)
-      color: { dark, light },
+      ...BASE_QR_OPTIONS,
+      width,
+      color: {
+        dark: cor_qrcode,
+        light: cor_fundo,
+      },
     };
 
-    if (format === 'png') {
+    const baseHeaders = {
+      "Cache-Control": "public, max-age=31536000, immutable",
+      "Access-Control-Allow-Origin": "*",
+    };
+
+    if (format === "png") {
       const buffer = await QRCode.toBuffer(text, options);
       return {
         statusCode: 200,
-        headers: {
-          'Content-Type': 'image/png',
-          'Cache-Control': 'public, max-age=31536000, immutable',
-          'Access-Control-Allow-Origin': '*',
-        },
-        body: buffer.toString('base64'),
+        headers: { ...baseHeaders, "Content-Type": "image/png" },
+        body: buffer.toString("base64"),
         isBase64Encoded: true,
       };
     }
@@ -69,18 +90,17 @@ exports.handler = async (event, context) => {
     const dataUrl = await QRCode.toDataURL(text, options);
     return {
       statusCode: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Cache-Control': 'public, max-age=31536000, immutable',
-        'Access-Control-Allow-Origin': '*',
-      },
-      body: JSON.stringify({ success: true, result: { dataUrl, format: 'png' } }),
+      headers: { ...baseHeaders, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        success: true,
+        result: { dataUrl, format: "png" },
+      }),
     };
   } catch (err) {
-    console.error('Erro na geração do QRCode:', err);
+    console.error("Erro na geração do QRCode:", err);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Erro interno ao gerar o QRCode.' }),
+      body: JSON.stringify({ error: "Erro interno ao gerar o QRCode." }),
     };
   }
 };

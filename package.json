@@ -1,7 +1,7 @@
 {
   "name": "qode-site",
   "version": "1.1.0",
-  "description": "Site e API para gerar QR Codes, hospedado na Netlify",
+  "description": "Site e API para gerar QR Codes",
   "type": "commonjs",
   "scripts": {
     "dev": "netlify dev"

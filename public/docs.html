@@ -1,127 +1,229 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Docs da API Qode</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Qode API - Documentação do Gerador de QR Code</title>
 
+    <link rel="icon" href="./img/qode.png" type="image/png" />
+    <meta
+      name="description"
+      content="Documentação completa da Qode API. Aprenda a integrar e gerar QR Codes personalizados (PNG ou Data URL) e a verificar o status do serviço de forma rápida e fácil."
+    />
+
+    <meta
+      name="keywords"
+      content="API, Qode, gerador de QR code, documentação, API de imagem, QR code personalizado, status da API, 1Blayzen"
+    />
+
+    <meta name="author" content="1Blayzen" />
+
+    <meta property="og:title" content="Qode API - Documentação Completa" />
+    <meta
+      property="og:description"
+      content="Guia completo para integrar com a nossa API mágica e otimizada para gerar QR Codes!"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://qode-api.netlify.app/" />
+
+    <meta
+      property="og:image"
+      content="https://qode-api.netlify.app/img/qode-preview.png"
+    />
+
+    <meta name="theme-color" content="#fbcfe8" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Qode API - Documentação do Gerador de QR Code"
+    />
+    <meta
+      name="twitter:description"
+      content="Guia completo para integrar e usar a Qode API para gerar QR Codes personalizados."
+    />
+    <meta
+      name="twitter:image"
+      content="https://qode-api.netlify.app/img/qode-preview.png"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
     <nav class="navbar">
-        <div class="nav-container">
-            <a href="/" class="nav-brand">Qode <i class="fa-solid fa-heart"></i></a>
-            <ul class="nav-menu">
-                <li><a href="/" class="nav-link">Gerador</a></li>
-                <li><a href="/docs.html" class="nav-link active">Documentação</a></li>
-            </ul>
-        </div>
+      <div class="nav-container">
+        <a href="/" class="nav-brand">Qode <i class="fa-solid fa-heart"></i></a>
+        <ul class="nav-menu">
+          <li><a href="/" class="nav-link">Gerador</a></li>
+          <li><a href="/docs.html" class="nav-link active">Documentação</a></li>
+        </ul>
+      </div>
     </nav>
 
     <div class="main-content">
-        <div class="docs-page-container">
-            <header class="docs-header">
-                <h1><i class="fa-solid fa-book-open"></i> Documentação da API</h1>
-                <p>Guia completo para integrar com a nossa API mágica!</p>
-            </header>
+      <div class="docs-page-container">
+        <header class="docs-header">
+          <h1><i class="fa-solid fa-book-open"></i> Documentação da API</h1>
+          <p>Guia completo para integrar com a nossa API mágica e otimizada!</p>
+        </header>
+        <div class="endpoint-card">
+          <div class="endpoint-header">
+            <span class="http-method get">GET</span>
+            <span class="endpoint-path">/api/status</span>
+            <span class="endpoint-tag">Status</span>
+          </div>
+          <div class="endpoint-body">
+            <p>
+              Verifica a saúde e a disponibilidade da API. Ideal para
+              monitoramento.
+            </p>
 
-            <!-- Card do Endpoint /status -->
-            <div class="endpoint-card">
-                <div class="endpoint-header">
-                    <span class="http-method get">GET</span>
-                    <span class="endpoint-path">/api/status</span>
-                    <span class="endpoint-tag">Status</span>
-                </div>
-                <div class="endpoint-body">
-                    <p>Verifica a saúde e a disponibilidade da API. Ideal para monitoramento.</p>
-                    
-                    <h4><i class="fa-solid fa-rocket"></i> Resposta de Sucesso (200 OK )</h4>
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span>Exemplo de Resposta</span>
-                            <button class="copy-btn" title="Copiar código"><i class="fa-solid fa-copy"></i></button>
-                        </div>
-                        <pre><code>{
+            <h4>
+              <i class="fa-solid fa-rocket"></i> Resposta de Sucesso (200 OK )
+            </h4>
+            <div class="code-block">
+              <div class="code-header">
+                <span>Exemplo de Resposta</span>
+                <button class="copy-btn" title="Copiar código">
+                  <i class="fa-solid fa-copy"></i>
+                </button>
+              </div>
+              <pre><code>{
   "status": "online",
-  "message": "API Qode está funcionando...",
+  "message": "API Qode está funcionando perfeitamente.",
   "version": "1.1.0",
   "timestamp": 1678886400000
 }</code></pre>
-                    </div>
-                </div>
+            </div>
+          </div>
+        </div>
+        <div class="endpoint-card">
+          <div class="endpoint-header">
+            <span class="http-method get">GET</span>
+            <span class="endpoint-path">/api/generate</span>
+            <span class="endpoint-tag">Principal</span>
+          </div>
+          <div class="endpoint-body">
+            <p>O endpoint principal para gerar a imagem de um QR Code.</p>
+
+            <h4><i class="fa-solid fa-sliders"></i> Parâmetros (Query )</h4>
+            <table class="params-table">
+              <thead>
+                <tr>
+                  <th>Parâmetro</th>
+                  <th>Tipo</th>
+                  <th>Obrigatório</th>
+                  <th>Padrão</th>
+                  <th>Descrição</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>text</code></td>
+                  <td>string</td>
+                  <td><span class="tag required">Sim</span></td>
+                  <td>N/A</td>
+                  <td>
+                    O conteúdo a ser codificado (limite de 1024 caracteres).
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>cor_qrcode</code></td>
+                  <td>hex</td>
+                  <td><span class="tag optional">Não</span></td>
+                  <td><code>#000000</code></td>
+                  <td>Cor dos pontos do QR Code.</td>
+                </tr>
+                <tr>
+                  <td><code>cor_fundo</code></td>
+                  <td>hex</td>
+                  <td><span class="tag optional">Não</span></td>
+                  <td><code>#FFFFFF</code></td>
+                  <td>Cor do fundo do QR Code.</td>
+                </tr>
+                <tr>
+                  <td><code>size</code></td>
+                  <td>string</td>
+                  <td><span class="tag optional">Não</span></td>
+                  <td><code>400x400</code></td>
+                  <td>Tamanho da imagem em pixels (formato NxN, máx 2048).</td>
+                </tr>
+                <tr>
+                  <td><code>format</code></td>
+                  <td>string</td>
+                  <td><span class="tag optional">Não</span></td>
+                  <td><code>dataUrl</code></td>
+                  <td>
+                    Formato da resposta. Use <code>png</code> para receber a
+                    imagem diretamente.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h4>
+              <i class="fa-solid fa-wand-magic-sparkles"></i> Exemplos de
+              Requisição
+            </h4>
+            <div class="code-block">
+              <div class="code-header">
+                <span>URL para obter a imagem diretamente (PNG)</span>
+                <button class="copy-btn" title="Copiar código">
+                  <i class="fa-solid fa-copy"></i>
+                </button>
+              </div>
+              <pre><code>/api/generate?text=Laren&format=png&size=500x500&cor_qrcode=%235865F2</code></pre>
+            </div>
+            <div class="code-block">
+              <div class="code-header">
+                <span>URL para obter JSON com Data URL</span>
+                <button class="copy-btn" title="Copiar código">
+                  <i class="fa-solid fa-copy"></i>
+                </button>
+              </div>
+              <pre><code>/api/generate?text=AmoGatinhosFofos</code></pre>
             </div>
 
-            <!-- Card do Endpoint /generate -->
-            <div class="endpoint-card">
-                <div class="endpoint-header">
-                    <span class="http-method get">GET</span>
-                    <span class="endpoint-path">/api/generate</span>
-                    <span class="endpoint-tag">Principal</span>
-                </div>
-                <div class="endpoint-body">
-                    <p>O endpoint principal para gerar a imagem de um QR Code.</p>
-                    
-                    <h4><i class="fa-solid fa-sliders"></i> Parâmetros (Query )</h4>
-                    <table class="params-table">
-                        <thead>
-                            <tr>
-                                <th>Parâmetro</th>
-                                <th>Tipo</th>
-                                <th>Obrigatório</th>
-                                <th>Descrição</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><code>text</code></td>
-                                <td>string</td>
-                                <td><span class="tag required">Sim</span></td>
-                                <td>O conteúdo a ser codificado no QR Code.</td>
-                            </tr>
-                            <tr>
-                                <td><code>dark</code></td>
-                                <td>hex</td>
-                                <td><span class="tag optional">Não</span></td>
-                                <td>Cor dos pontos. Padrão: <code>#000000</code>.</td>
-                            </tr>
-                            <tr>
-                                <td><code>light</code></td>
-                                <td>hex</td>
-                                <td><span class="tag optional">Não</span></td>
-                                <td>Cor do fundo. Padrão: <code>#FFFFFF</code>.</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <h4><i class="fa-solid fa-wand-magic-sparkles"></i> Exemplo de Requisição</h4>
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span>Exemplo de URL</span>
-                            <button class="copy-btn" title="Copiar código"><i class="fa-solid fa-copy"></i></button>
-                        </div>
-                        <pre><code>/api/generate?text=AmoGatinhosFofos</code></pre>
-                    </div>
-
-                    <h4><i class="fa-solid fa-circle-check"></i> Resposta de Sucesso (200 OK)</h4>
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span>Exemplo de Resposta</span>
-                            <button class="copy-btn" title="Copiar código"><i class="fa-solid fa-copy"></i></button>
-                        </div>
-                        <pre><code>{
+            <h4>
+              <i class="fa-solid fa-circle-check"></i> Resposta de Sucesso (200
+              OK)
+            </h4>
+            <p>
+              A resposta varia de acordo com o parâmetro <code>format</code>.
+            </p>
+            <div class="code-block">
+              <div class="code-header">
+                <span>Resposta para <code>format=dataUrl</code> (padrão)</span>
+                <button class="copy-btn" title="Copiar código">
+                  <i class="fa-solid fa-copy"></i>
+                </button>
+              </div>
+              <pre><code>{
   "success": true,
   "result": {
     "dataUrl": "data:image/png;base64,iVBORw0KG...",
     "format": "png"
   }
 }</code></pre>
-                    </div>
-                </div>
             </div>
+            <div class="code-block">
+              <div class="code-header">
+                <span>Resposta para <code>format=png</code></span>
+              </div>
+              <pre><code>&lt;-- A imagem PNG é retornada diretamente no corpo da resposta --&gt;</code></pre>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-    
-    <script src="docs.js"></script>
-</body>
+
+    <script src="docs-script.js"></script>
+  </body>
 </html>
